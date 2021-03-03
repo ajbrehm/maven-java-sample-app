@@ -15,16 +15,18 @@ pipeline {
         }
 
         stage('Package'){
-            
-        steps {
+            steps {
                 powershell 'mvn package'
-           }
-    
-
+            }
         }
-    }
 
-     post {
+        stage('Deploy') {
+            steps {
+                powershell '& java -jar -Dserver.port=8001 spring-petclinic-2.3.1.BUILD-SNAPSHOT.jar'
+            }
+        }
+
+        post {
             always {
                 junit 'target/surefire-reports/TEST-*.xml'
             }
@@ -32,4 +34,5 @@ pipeline {
                 archiveArtifacts artifacts: 'target/*.jar', followSymlinks: false
             }
         }
+    }
 }
