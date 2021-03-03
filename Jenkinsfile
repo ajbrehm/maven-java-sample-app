@@ -22,7 +22,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                powershell '& java -jar -Dserver.port=8001 spring-petclinic-2.3.1.BUILD-SNAPSHOT.jar'
+                powershell 'java -jar -Dserver.port=8001 spring-petclinic-2.3.1.BUILD-SNAPSHOT.jar'
             }
         }
 
